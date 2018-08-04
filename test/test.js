@@ -1,7 +1,27 @@
-var assert = require('assert')
+var assert = require('assert'),
+    http = require('http');
+var server = require('../app/app.js').app;
 
-function test() {
-  assert.equal(2 + 2, 4);
-}
+describe('/', function () {
+  it('should return 200', function (done) {
+    http.get('http://localhost:3000', function (res) {
+      assert.equal(200, res.statusCode);
+      done();
+    });
+  });
 
-if (module == require.main) require('test').run(test);
+  it('should say "Hello Auto Ops Ltd."', function (done) {
+    http.get('http://localhost:3000', function (res) {
+      var data = '';
+
+      res.on('data', function (chunk) {
+        data += chunk;
+      });
+
+      res.on('end', function () {
+        assert.equal('Hello Auto Ops Ltd.\n', data);
+        done();
+      });
+    });
+  });
+});
