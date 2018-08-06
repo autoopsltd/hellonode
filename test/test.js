@@ -10,7 +10,7 @@ describe('/', function () {
     });
   });
 
-  it('should say "Hello Auto Ops Ltd."', function (done) {
+  it('should say "This proves NodeJS web server is working."', function (done) {
     http.get('http://localhost:3000', function (res) {
       var data = '';
 
@@ -19,7 +19,7 @@ describe('/', function () {
       });
 
       res.on('end', function () {
-        assert.equal('Hello Auto Ops Ltd.\n', data);
+        assert.equal('This proves NodeJS web server is working.\n', data);
         done();
       });
     });
